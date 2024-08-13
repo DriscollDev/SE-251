@@ -1,6 +1,7 @@
 //canvas and context
 var c = document.querySelector(`#pong`)
 var ctx = c.getContext(`2d`)
+var scoreboard = document.querySelector(`#score`).querySelectorAll(`div`);
 
 //timer to make the game run at 60fps
 var timer = setInterval(main, 1000/60)
@@ -22,9 +23,10 @@ p2.w = 20
 p2.h = 150
 p2.x = c.width - p1.w
 
-//player objects
-var play1 = new Player("Player 1",p1);
-var play2 = new Player("Player 2",p2);
+
+//players
+var players = [new Player("Player 1",p1),new Player("Player 2",p2)]
+var pad = [players[0].pad, players[1].pad]
 
 //ball setup
 var ball = new Box();
@@ -42,73 +44,53 @@ function main()
     //p1 accelerates when key is pressed 
     if(keys[`w`])
     {
-       p1.vy += -p1.force
+       pad[0].vy += -pad[0].force
     }
 
     if(keys[`s`])
     {
-        p1.vy += p1.force
+        pad[0].vy += pad[0].force
     }
 
 
     //p2 accellerates when up/down
     if(keys[`ArrowUp`])
     {
-        p2.vy += -p2.force
+        pad[1].vy += -pad[1].force
     }
     
     if(keys[`ArrowDown`])
     {
-        p2.vy += p2.force
+        pad[1].vy += pad[1].force
     }
 
-    //applies friction
-    p1.vy *= fy
-    p2.vy *= fy
-    //player movement
-    p1.move();
-    p2.move()
+
 
     //ball movement
     ball.move()
 
-    //p1 collision
-    if(p1.y < 0+p1.h/2)
-    {
-        p1.y = 0+p1.h/2
-    }
-    if(p1.y > c.height-p1.h/2)
-    {
-        p1.y = c.height-p1.h/2
-    }
-    //p2 collision
-    if(p2.y < 0+p2.h/2)
-    {
-        p2.y = 0+p2.h/2
-    }
-    if(p2.y > c.height-p2.h/2)
-    {
-        p2.y = c.height-p2.h/2
-    }
+
 
     //ball collision 
     if(ball.x < 0)
     {
         //score p2
-        play2.score += 1
+        players[1].score += 1
         ball.x = c.width/2
         ball.y = c.height/2
         ball.vx = 5
         ball.vy = 5
+        console.log(`${players[0].score} | ${players[1].score}`)
     }
     if(ball.x > c.width)
     {
         //score p1
-        play1.score += 1
+        players[0].score += 1
         ball.x = c.width/2
         ball.y = c.height/2
         ball.vx = -5
         ball.vy = -5
+        console.log(`${players[0].score} | ${players[1].score}`)
     }
     if(ball.y < 0)
     {
@@ -121,21 +103,36 @@ function main()
         ball.vy = -ball.vy
        
     }
+    
 
-    //p1 with ball collision
-    if(ball.collide(p1))
+    for(var i = 0; i < players.length; i++)
     {
-        ball.x = p1.x + p1.w/2 + ball.w/2
-        ball.vx = -ball.vx;
-    }
-    //p2 with ball collision
-    if(ball.collide(p2))
+        //applies friction
+        pad[i].vy *= fy
+        //player movement
+        pad[i].move();
+
+        //player collision
+        if(pad[i].y < 0+pad[i].h/2)
         {
-            ball.x = p2.x - p2.w/2 - ball.w/2
+            pad[i].y = 0+pad[i].h/2
+        }
+        if(pad[i].y > c.height-pad[i].h/2)
+        {
+            pad[i].y = c.height-pad[i].h/2
+        }
+
+        
+        //players with ball collision
+        if(ball.collide(pad[i]))
+        {
+            ball.x = pad[i].x + ((pad[i].w/2 + ball.w/2) * Math.sign(ball.vx*-1))
             ball.vx = -ball.vx;
         }
-    //draw the objects
-    p1.draw()
-    p2.draw()
+
+        //draw the objects
+        pad[i].draw()
+        scoreboard[i].innerHTML = players[i].score
+    }
     ball.draw()
 }
