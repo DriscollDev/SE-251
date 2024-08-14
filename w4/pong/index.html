@@ -58,25 +58,41 @@
 
         startButton.addEventListener(`click`, (e)=>{
             console.log(`hi`)
+            const newMenu = document.createElement(`div`);
+            newMenu.setAttribute(`id`, `start-options`);    
+
+            const newGameButton = document.createElement(`button`);
+            newGameButton.appendChild(document.createTextNode(`New Game`));
+            newMenu.appendChild(newGameButton);
+
+            const continueButton = document.createElement(`button`);
+            continueButton.appendChild(document.createTextNode(`Continue`));
+            newMenu.appendChild(continueButton);
+
+            const highScoresButton = document.createElement(`button`);
+            highScoresButton.appendChild(document.createTextNode(`High Scores`));
+
+            newGameButton.addEventListener('click', () => {
+                window.location = `lobby.html?load=${e.target.dataset.load}`;
+            });
+
+            continueButton.addEventListener('click', () => {
+                window.location = `lobby.html?load=${e.target.dataset.load}`;
+            });
+
+            highScoresButton.addEventListener('click', () => {
+                window.location = 'hs.html';
+            });
+            newMenu.style.opacity =`0`;
+            newMenu.appendChild(highScoresButton);
             $(`#start`).animate({opacity: 0}, 1000, function(){
-                const newMenu = document.createElement(`div`);
-                newMenu.setAttribute(`id`, `start-options`);
-
-                const newGameButton = document.createElement(`button`);
-                newGameButton.appendChild(document.createTextNode(`New Game`));
-                newMenu.appendChild(newGameButton);
-
-                const continueButton = document.createElement(`button`);
-                continueButton.appendChild(document.createTextNode(`Continue`));
-                newMenu.appendChild(continueButton);
-
-                const highScoresButton = document.createElement(`button`);
-                highScoresButton.appendChild(document.createTextNode(`High Scores`));
-                newMenu.appendChild(highScoresButton);
-
+                
                 menus.removeChild(startMenu);
                 menus.appendChild(newMenu);
+                $(`#start-options`).animate({opacity: 1}, 1000);
             });
+        
+                
         })
 
     </script>
