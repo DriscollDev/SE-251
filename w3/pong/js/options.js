@@ -20,17 +20,6 @@ optionButton.addEventListener(`click`, function(){
 
 -----------*/
 
-var fillInputs = document.querySelectorAll(`.fill`);
-for(let i=0; i<fillInputs.length; i++)
-{
-    fillInputs[i].value = player[i].fill;
-    fillInputs[i].nextSibling.style.backgroundColor = fillInputs[i].value;
-    player[i].pad.fill = fillInputs[i].value;
-    fillInputs[i].addEventListener(`input`, function(){
-        player[i].pad.fill = this.value;
-        fillInputs[i].nextSibling.style.backgroundColor = this.value;
-    });
-}
 
 
 /*---------
@@ -44,17 +33,61 @@ for(let i=0; i<fillInputs.length; i++)
 
 
 
-var upInputs = document.querySelectorAll(`.u`);
-for(let i=0; i<upInputs.length; i++)
+var powerInputs = document.querySelectorAll(`.pow`);
+for(let i=0; i<powerInputs.length; i++)
 {
-    upInputs[i].value = player[i].keys.u;
-    upInputs[i].nextSibling.innerText = player[i].keys.u;
-    upInputs[i].addEventListener(`keydown`, function(event){
-        player[i].keys.u = event.key;
-        upInputs[i].value = player[i].keys.u;
-        upInputs[i].nextSibling.innerText = player[i].keys.u;
+    powerInputs[i].value = player[i].power;
+    powerInputs[i].nextSibling.innerText = player[i].power;
+    powerInputs[i].addEventListener(`input`, function(){
+        player[i].power = this.value;
+        powerInputs[i].nextSibling.innerText = player[i].power;
     });
-    upInputs[i].addEventListener(`focus`, function(){
+    powerInputs[i].addEventListener(`focus`, function(){
         currentState = `pause`;
     });
 }
+
+
+var colorInputs = document.querySelectorAll(`.colors`);
+for(let i=0; i<colorInputs.length; i++){
+    if(colorInputs[i].classList.contains(`fill`)){
+        let playNum = parseInt(colorInputs[i].parentElement.classList[1]);
+        colorInputs[i].value = player[playNum].fill;
+        colorInputs[i].nextSibling.style.backgroundColor = colorInputs[i].value;
+        colorInputs[i].addEventListener(`input`, function(){
+            let playNum = parseInt(colorInputs[i].parentElement.classList[1]);
+            player[playNum].fill = this.value;
+            player[playNum].pad.fill = this.value;
+            colorInputs[i].nextSibling.style.backgroundColor = this.value;
+        });
+    }
+    else{
+        let playNum = parseInt(colorInputs[i].parentElement.classList[1]);
+        colorInputs[i].value = player[playNum].stroke;
+        colorInputs[i].nextSibling.style.backgroundColor = colorInputs[i].value;
+        colorInputs[i].addEventListener(`input`, function(){
+            let playNum = parseInt(colorInputs[i].parentElement.classList[1]);
+            player[playNum].stroke = this.value;
+            player[playNum].pad.stroke = this.value;
+            colorInputs[i].nextSibling.style.backgroundColor = this.value;
+        });
+    }
+}
+
+var keyInputs = document.querySelectorAll(`.keys`);
+for(let i=0; i<keyInputs.length; i++){
+    let playNum = parseInt(keyInputs[i].parentElement.classList[1]);
+    keyInputs[i].value = player[playNum].keys[keyInputs[i].classList[0]];
+    keyInputs[i].nextSibling.innerText = player[playNum].keys[keyInputs[i].classList[0]];
+    keyInputs[i].addEventListener(`keydown`, function(event){
+        let playNum = parseInt(keyInputs[i].parentElement.classList[1]);
+        player[playNum].keys[keyInputs[i].classList[0]] = event.key;
+        keyInputs[i].value = player[playNum].keys[keyInputs[i].classList[0]];
+        keyInputs[i].nextSibling.innerText = player[playNum].keys[keyInputs[i].classList[0]];
+    });
+    keyInputs[i].addEventListener(`focus`, function(){
+        currentState = `pause`;
+    });
+}
+
+

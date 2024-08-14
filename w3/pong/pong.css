@@ -42,9 +42,12 @@ canvas{
     overflow-y:hidden;
 }
 .op{
-    width: 400px;
+    width: 500px;
     color:#ffffff;
     display:grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     
+}
+.output{
+    width: 100px;
 }
