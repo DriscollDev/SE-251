@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 Time Stuff</title>
+</head>
+<body>
+    <h2>setTimeout</h2>
+    <div></div>
+    <h2>setInterval</h2>
+    <div></div>
+    <h2>Date</h2>
+    <div></div>
+    <script>
+    
+    var times = [0,0,0]
+    var divs = document.querySelectorAll(`div`)
+    divs[0].innerText = times[0]
+    divs[1].innerText = times[1]
+    divs[2].innerText = times[2]
+    
+    counter();
+    function counter()
+    {
+        divs[0].innerText = times[0]++;
+        setTimeout(counter, 1000)
+    };
+
+    setInterval(e=>divs[1].innerText = ++times[1],1000)
+
+   
+    var startTime = new Date().getTime()
+    setInterval(e=>{
+        var newTime = new Date().getTime()
+         divs[2].innerText = Math.round((newTime - startTime)/1000)
+    } ,1000)
+   
+
+
+    </script>
+</body>
+</html>

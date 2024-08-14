@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 Local Storage and Date Objects</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="name">
+    </div>
+    <div>
+        <span>techer</span><input type="radio" class="role" name="role" value="teacher">
+        <span>student</span><input type="radio" class="role" name="role" value="student">
+    </div>
+    <div>
+        <button id="save">Save</button>
+        <button id="del">Delete</button>
+    </div>
+    <div id="output">
+
+    </div>
+    <script>
+        var input = document.querySelector(`#name`)
+        var save = document.querySelector(`#save`)
+        
+        var del = document.querySelector(`#del`)
+        var output = document.querySelector(`#output`)
+        
+        window.addEventListener(`load`, e=>{
+            if(localStorage.getItem(`name`))
+            {
+                var person = JSON.parse(localStorage.getItem(`name`))
+                console.log(person)
+                output.innerHTML+=person.name+`<br>`;
+                output.innerHTML+=person.role+`<br>`;
+            }
+            else
+            {
+                output.innerHTML+=`Nothing is saved`;
+            }
+        })
+
+        save.addEventListener(`click`, e=>{
+            var role = document.querySelector(`input[name="role"]:checked`)
+            var person = {name:input.value, role:role.value};
+            localStorage.setItem(`name`, JSON.stringify(person));
+        })
+        
+        del.addEventListener(`click`, e=>{
+            localStorage.clear();
+        })
+
+
+    </script>
+</body>
+</html>
