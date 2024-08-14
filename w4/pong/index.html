@@ -55,10 +55,27 @@
             });
         }
 
+
         startButton.addEventListener(`click`, (e)=>{
             console.log(`hi`)
             $(`#start`).animate({opacity: 0}, 1000, function(){
-                window.location = `pong.html`
+                const newMenu = document.createElement(`div`);
+                newMenu.setAttribute(`id`, `start-options`);
+
+                const newGameButton = document.createElement(`button`);
+                newGameButton.appendChild(document.createTextNode(`New Game`));
+                newMenu.appendChild(newGameButton);
+
+                const continueButton = document.createElement(`button`);
+                continueButton.appendChild(document.createTextNode(`Continue`));
+                newMenu.appendChild(continueButton);
+
+                const highScoresButton = document.createElement(`button`);
+                highScoresButton.appendChild(document.createTextNode(`High Scores`));
+                newMenu.appendChild(highScoresButton);
+
+                menus.removeChild(startMenu);
+                menus.appendChild(newMenu);
             });
         })
 
