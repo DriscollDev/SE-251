@@ -1,8 +1,13 @@
 /*--------
-    Make the Options Button 
+    Make the Options Button     
     . on click
     . show or hide the `.sides` div
 ---------*/
+
+var optionButton = document.querySelector(`#options`).querySelector(`h2`);
+optionButton.addEventListener(`click`, function(){
+    document.querySelector(`.sides`).classList.toggle(`hidden`);
+});
 
 /*---------
     Program the two fill inputs to do the following:
