@@ -29,15 +29,26 @@
     <script>
         var highScoreList = [
             {name:`aaa`, score:1000},
-            {name:`bbb`, score:980}
+            {name:`bbb`, score:980},
+            {name:`ccc`, score:900},
+            {name:`ddd`, score:800},
+            {name:`eee`, score:700},
+            
+            
         ]
-        
+
         //
         var menus = document.querySelector(`#menus`);
 
-        
-       
+        var message = "";
+        for (var i = 0; i < highScoreList.length; i++) {
+            for (var prop in highScoreList[i]) {
+                message += highScoreList[i][prop] + " " ;
+            }
+            message += "<br>";
+        }
 
+        menus.innerHTML = "<div id='high-scores'>" + message + "</div>";
      
 
 
