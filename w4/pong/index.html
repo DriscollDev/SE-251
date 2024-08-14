@@ -63,21 +63,23 @@
 
             const newGameButton = document.createElement(`button`);
             newGameButton.appendChild(document.createTextNode(`New Game`));
+            newGameButton.setAttribute(`data-load`, `false`);
             newMenu.appendChild(newGameButton);
 
             const continueButton = document.createElement(`button`);
             continueButton.appendChild(document.createTextNode(`Continue`));
+            newGameButton.setAttribute(`data-load`, `true`);
             newMenu.appendChild(continueButton);
 
             const highScoresButton = document.createElement(`button`);
             highScoresButton.appendChild(document.createTextNode(`High Scores`));
 
-            newGameButton.addEventListener('click', () => {
-                window.location = `lobby.html?load=${e.target.dataset.load}`;
+            newGameButton.addEventListener('click', (e)=>{
+                window.location = `lobby.html?load=${e.target.dataset.load}` ;
             });
 
-            continueButton.addEventListener('click', () => {
-                window.location = `lobby.html?load=${e.target.dataset.load}`;
+            continueButton.addEventListener('click', (e)=>{
+                window.location = `lobby.html?load=${e.target.dataset.load}` ; 
             });
 
             highScoresButton.addEventListener('click', () => {
