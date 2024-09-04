@@ -36,7 +36,20 @@
         ]
         
         var menus = document.querySelector(`#menus`);
-
+        var highScores = document.createElement(`div`);
+        highScores.id = `high-scores`;
+        menus.appendChild(highScores);
+        highScoreList.forEach((item) => {
+            var row = document.createElement(`div`);
+            row.className = `row`;
+            highScores.appendChild(row);
+            var name = document.createElement(`div`);
+            name.innerHTML = item.name;
+            row.appendChild(name);
+            var score = document.createElement(`div`);
+            score.innerHTML = item.score;
+            row.appendChild(score);
+        });
         
        
 
